@@ -1,0 +1,61 @@
+<!DOCTYPE HTML/>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Weather Forecast</title>
+        <link rel="stylesheet" href="style.scss" />
+    </head>
+    <body>
+    
+        <nav class="nst">
+            
+            <div id="holder">
+                <div class="box">
+                    <div class="side1"><img src="images/sun.png" /></div>
+                    <div class="side2"><img src="images/sun-cloud.png" /></div>
+                    <div class="side3"><img src="images/sun-rain.png" /></div>
+                    <div class="side4"><img src="images/cloud.png" /></div>
+                    <div class="side5"><img src="images/cloud-snow.png" /></div>
+                    <div class="side6"><img src="images/cloud-simple.png" /></div>
+                </div>
+            </div>
+            
+          <a href="index.html">|Home|</a>
+          <a href="">|14 days|</a>
+          <a href="/js/">|Weather in other city|</a>
+          <a href="#">|About|</a>
+        </nav>
+        <br>
+        
+        <span id="city"></span>
+        <div class="fontstyle">
+        <i>Weather Forecast</i>
+     
+        <h5><i>Today is</i></h5>
+         <h5 id="cdate"></h5>
+        </div>
+    <br>
+    
+   <article>
+       <form class="formst">
+            <label for="cityName">Enter city name:</label>
+            <input id="inputCityName" type="text" name="cityName"/>
+            <input type="button" id="btnGetWeather" value="Get Weather"/>
+        </form>
+   </article>
+    
+    <footer>
+        Created by <a class="fstyle" href="https://facebook.com/volodymyr.lviv.ua">Volodymyr Sekh</a>,Lviv
+      <span id="myfooter"></span>
+       
+        &copy
+    </footer>
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
+    <script src="js/func.js"></script>
+    <script src="js/GetWeather.js"></script>
+    <script src="js/scripts.js"></script>
+    </body>
+    
+</html>
