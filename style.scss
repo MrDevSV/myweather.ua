@@ -164,4 +164,30 @@ footer{
 
 .formst{
   margin-left:45%;
+  
+}
+
+#inputCityName{
+   background-color: #f3f3f3;
+    border: 1px solid blue;
+    height: 30px;
+    color: #b2b2b2;
+    padding: 0 10px;
+    vertical-align: top;
+  
+}
+
+#btnGetWeather {
+    color: #fff;
+    background-color: orange;
+    border: none;
+    height: 32px;
+    font-family: 'Oswald', sans-serif;
+    
+}
+
+label{
+  color:orange;
+  font-size:14pt;
+  font-family:Forte;
 }
