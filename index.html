@@ -35,13 +35,23 @@
          <h5 id="cdate"></h5>
         </div>
     <br>
-    
+     <span id="location" ></span><span class="location">,UA</span>
    <article>
        <form class="formst">
             <label for="cityName">Enter city name:</label>
             <input id="inputCityName" type="text" name="cityName"/>
             <input type="button" id="btnGetWeather" value="Get Weather"/>
         </form>
+        
+        
+   <div class="weather-box">
+  	 <table >
+           <tr id="weather">
+             
+           </tr>
+         </table>
+  </div>
+    
    </article>
     
     <footer>
@@ -55,6 +65,7 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
     <script src="js/func.js"></script>
     <script src="js/GetWeather.js"></script>
+    <script src="scripts/weatherByCity.js"></script>
     <script src="js/scripts.js"></script>
     </body>
     

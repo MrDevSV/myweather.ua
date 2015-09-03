@@ -2,12 +2,20 @@ $(function(){
     $('#btnGetWeather').click(function () {
         getWeatherByCity('ua', dataReceived, showError, $('#inputCityName').val());
     });
+    $('#inputCityName').keypress(function(e) {
+        var ENTER_KEY_CODE = 13;
+        if ( e.which === ENTER_KEY_CODE ) 
+        {
+            $('#btnGetWeather').trigger('click');
+            return false;
+        }
+    });    
     
     getWeatherData('ua', dataReceived, showError);
     
 
     function dataReceived(data) {
-        var offset = (new Date()).getTimezoneOffset()*60*1000; // Відхилення від UTC  в мілісекундах
+        var offset = (new Date()).getTimezoneOffset()*60*1000; // Відхилення від UTC в секундах
         var city = data.city.name;
         var country = data.city.country;
         $("#weatherTable tr:not(:first)").remove();
@@ -17,24 +25,22 @@ $(function(){
             var localTime = new Date(this.dt*1000 - offset); // конвертуємо час з UTC у локальний
             addWeather(
                 this.weather[0].icon,
-                moment(localTime).calendar(),	// Використовуємо moment.js для представлення дати
+                moment(localTime).format('l'),	// Використовуємо moment.js для представлення дати
                 this.weather[0].description,
                 Math.round(this.temp.day) + '&deg;C'
             );
         });
-        $('#location').html(city + ', <b>' + country + '</b>'); // Додаємо локацію на сторінку
+        $('#location').html('<b>'+city + '</b>'); // Додаємо локацію на сторінку
     }
 
     function addWeather(icon, day, condition, temp){
-        var markup = '<tr>'+
-                '<td>' + day + '</td>' +
-                '<td>' + '<img src="images/icons/'+ 
-                  ( (icon === '10ddd')? '10d' : icon) // Fix in case if server returns unknown icon 10ddd 
-                  +'.png" />' + '</td>' +
-                '<td>' + temp + '</td>' +
-                '<td>' + condition + '</td>'
-            + '</tr>';
-        weatherTable.insertRow(-1).innerHTML = markup; // Додаємо рядок до таблиці
+        var markup = 
+             '<td>' + '<img src="img/icons/'+icon+'.png" />' + '</td>'+
+             '<td>' +  '<span class="day"> Сьогодні &nbsp' + day + '</span><br>'+ 
+                '<span class="temp"> Температура &nbsp' + temp + '</span><br>' +
+                '<span class="condition"> На небі &nbsp' + condition + '</span>' + '</td>';
+                ;
+        weather.innerHTML = markup; 
     }
 
     function showError(msg){
