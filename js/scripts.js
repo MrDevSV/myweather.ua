@@ -1,6 +1,6 @@
 $(function(){
     $('#btnGetWeather').click(function () {
-        getWeatherByCity('ua', dataReceived, showError, $('#inputCityName').val());
+        getWeatherByCity('en', dataReceived, showError, $('#inputCityName').val());
     });
     $('#inputCityName').keypress(function(e) {
         var ENTER_KEY_CODE = 13;
@@ -11,7 +11,7 @@ $(function(){
         }
     });    
     
-    getWeatherData('ua', dataReceived, showError);
+    getWeatherData('eng', dataReceived, showError);
     
 
     function dataReceived(data) {
@@ -27,18 +27,24 @@ $(function(){
                 this.weather[0].icon,
                 moment(localTime).format('l'),	// Використовуємо moment.js для представлення дати
                 this.weather[0].description,
-                Math.round(this.temp.day) + '&deg;C'
+                Math.round(this.temp.day) + '&deg;C',
+                Math.round(data.list[0].temp.min) + '&deg;C',
+                Math.round(data.list[0].temp.max) + '&deg;C',
+                data.list[0].pressure,
+                data.list[0].humidity
             );
         });
-        $('#location').html('<b>'+city + '</b>'); // Додаємо локацію на сторінку
+         $('#location').html(city + ', <b>' + country + '</b>'); // Додаємо локацію на сторінку
     }
 
     function addWeather(icon, day, condition, temp){
         var markup = 
              '<td>' + '<img src="img/icons/'+icon+'.png" />' + '</td>'+
-             '<td>' +  '<span class="day"> Сьогодні &nbsp' + day + '</span><br>'+ 
-                '<span class="temp"> Температура &nbsp' + temp + '</span><br>' +
-                '<span class="condition"> На небі &nbsp' + condition + '</span>' + '</td>';
+             '<td>' +  '<span class="day"> Today &nbsp' + day + '</span><br>'+ 
+                '<span class="temp"> Temperature &nbsp' + temp + '</span><br>' +
+                '<span class="condition"> On sky &nbsp' + condition + '</span>' + '</td>';
+                 
+                
                 ;
         weather.innerHTML = markup; 
     }

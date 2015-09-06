@@ -12,3 +12,11 @@ function GetCurrentDate(){
 }
 
 GetCurrentDate();
+
+$(document).ready(function() {
+			
+jQuery(window).load(function() {
+ $(".loaderbig, .loadersmall, .pr_title").fadeOut();
+ $(".preloader").delay(1000).fadeOut("slow");
+});
+});
