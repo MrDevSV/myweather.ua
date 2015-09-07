@@ -11,45 +11,60 @@ $(function(){
         }
     });    
     
-    getWeatherData('eng', dataReceived, showError);
-    
+    getWeatherData('en', dataReceived, showError);
+      var end=0;
 
     function dataReceived(data) {
         var offset = (new Date()).getTimezoneOffset()*60*1000; // Відхилення від UTC в секундах
         var city = data.city.name;
         var country = data.city.country;
+        var icon = data.list[0].weather[0].icon;
+        var temp = data.list[0].temp.day;
+        var condition = data.list[0].weather[0].description;
+        var localTime = data.list[0].dt*1000 - offset;
+
         $("#weatherTable tr:not(:first)").remove();
 
-        $.each(data.list, function(){
-            // "this" тримає об'єкт прогнозу звідси: http://openweathermap.org/forecast16
-            var localTime = new Date(this.dt*1000 - offset); // конвертуємо час з UTC у локальний
-            addWeather(
-                this.weather[0].icon,
-                moment(localTime).format('l'),	// Використовуємо moment.js для представлення дати
-                this.weather[0].description,
-                Math.round(this.temp.day) + '&deg;C',
-                Math.round(data.list[0].temp.min) + '&deg;C',
-                Math.round(data.list[0].temp.max) + '&deg;C',
-                data.list[0].pressure,
-                data.list[0].humidity
-            );
-        });
-         $('#location').html(city + ', <b>' + country + '</b>'); // Додаємо локацію на сторінку
+          addWeather(icon,moment(localTime).format('ll'),condition,temp)
+         $('#location').html(city + ', <b>' + country + '</b>');
+         // Додаємо локацію на сторінку
     }
 
-    function addWeather(icon, day, condition, temp){
-        var markup = 
-             '<td>' + '<img src="img/icons/'+icon+'.png" />' + '</td>'+
-             '<td>' +  '<span class="day"> Today &nbsp' + day + '</span><br>'+ 
-                '<span class="temp"> Temperature &nbsp' + temp + '</span><br>' +
-                '<span class="condition"> On sky &nbsp' + condition + '</span>' + '</td>';
-                 
-                
-                ;
-        weather.innerHTML = markup; 
+    
+     function addWeather(icon, day, condition, temp){
+         var markup =
+         '<td>' + '<img src="img/icons/'+icon+'.png" class="img-day" />' + '</td>'+
+         '<td class="td">' + '<span class="day after"></span><br>'+
+            '<span class="temp after"> </span>&#176C;<br>' +
+            '<span class="condition after"></span>'+'</td>'
+             
+
+         weather.innerHTML = markup;
+         Text_animate('.day', 'Today:  ' + day);
+         Text_animate('.temp', 'Temperature: ' + temp);
+         Text_animate('.condition', 'On sky:  ' + condition);
     }
+    
+    function Text_animate(element, text) {
+        if (!text) { // Recursion exit condition
+            $(element).removeClass('after');
+            return; 
+        }
+        $(element).append(text[0]);
+        setTimeout(function () {
+            Text_animate(element, text.slice(1));
+        }, 0);
+    }
+
 
     function showError(msg){
         $('#error').html('Сталася помилка: ' + msg);
-    }
+    } 
+
+    
+        
+   
+
+      
+   
 });
